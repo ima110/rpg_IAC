@@ -4,7 +4,7 @@ provider "aws" {
 
 module "my_ec2" {
 
-    source = "./modules/ec2"
+    source = "../../modules/ec2"
 
     ami = var.ami
     instance_type = var.instance_type
@@ -15,7 +15,7 @@ module "my_ec2" {
 
 module "ssh_sg" {
     
-    source = "./modules/security"
+    source = "../../modules/security"
     port=var.port
     sg_name= var.sg_name
     cidr_blocks= var.cidr_blocks

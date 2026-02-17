@@ -1,0 +1,79 @@
+name: "Multi-Env Terraform Deployment"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write 
+
+jobs:
+  # --- DEV ENVIRONMENT ---
+  deploy-dev:
+    name: "Deploy to DEV"
+    runs-on: ubuntu-latest
+    environment: Dev
+    defaults:
+      run:
+        working-directory: ./ENV/DEV
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init
+        run: terraform init
+      - name: terraform format check
+        run: terraform fmt -check  
+      - name: terraform validate
+        run: terraform validate
+      - name: terraform plan
+        run: terraform plan -out=deployement.tf  
+      - name: Terraform Apply
+        run: terraform apply -auto-approve deployement.tf
+
+  # --- QA ENVIRONMENT ---
+  deploy-qa:
+    name: "Deploy to QA"
+    needs: deploy-dev  
+    runs-on: ubuntu-latest
+    environment: QA  
+    defaults:
+      run:
+        working-directory: ./ENV/QA
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init
+        run: terraform init
+      - name: terraform format check
+        run: terraform fmt -check
+      - name: terraform validate
+        run: terraform validate
+      - name: terraform plan
+        run: terraform plan -out=deployement.tf 
+      - name: Terraform Apply
+        run: terraform apply -auto-approve deployement.tf
+
+  # --- PROD ENVIRONMENT ---
+  deploy-prod:
+    name: "Deploy to PROD"
+    needs: deploy-qa   
+    runs-on: ubuntu-latest
+    environment: PROD
+    defaults:
+      run:
+        working-directory: ./ENV/PROD
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init
+        run: terraform init
+      - name: terraform format check
+        run: terraform fmt -check
+      - name: terraform validate
+        run: terraform validate
+      - name: terraform plan
+        run: terraform plan -out=deployement.tf  
+      - name: Terraform Apply
+        run: terraform apply -auto-approve deployement.tf
