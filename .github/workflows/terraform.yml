@@ -49,8 +49,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
             role-to-assume: arn:aws:iam::780604191148:role/GitHubAction-Terraform-Role
             aws-region: us-east-1 
       - uses: hashicorp/setup-terraform@v3
@@ -77,8 +77,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
             role-to-assume: arn:aws:iam::780604191148:role/GitHubAction-Terraform-Role
             aws-region: us-east-1
       - uses: hashicorp/setup-terraform@v3
