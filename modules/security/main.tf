@@ -1,5 +1,6 @@
 resource "aws_security_group" "this" {
-  name = var.sg_name
+  name = "${var.env_name}-allow-ssh"
+  description = "Allow SSH for ${var.env_name}"
 
   ingress {
     to_port     = var.port
