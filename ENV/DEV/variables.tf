@@ -6,5 +6,5 @@ variable "port" {}
 variable "cidr_blocks" {}
 
 variable "tags" {
-  type =map(string)
+  type = map(string)
 }

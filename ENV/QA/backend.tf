@@ -1,8 +1,8 @@
 terraform {
-    backend "s3" {
-        bucket = "raza-terraform-state-bucket"
-        key = "rpg-qa/terraform.tfstate"
-        region = "us-east-1"
-        use_lockfile = true
-    }
+  backend "s3" {
+    bucket       = "raza-terraform-state-bucket"
+    key          = "rpg-qa/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+  }
 }
