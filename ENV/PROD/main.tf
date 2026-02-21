@@ -17,6 +17,6 @@ module "ssh_sg" {
 
   source      = "../../modules/security"
   port        = var.port
-  env_name     = var.env_name
+  env_name    = var.env_name
   cidr_blocks = var.cidr_blocks
 }
